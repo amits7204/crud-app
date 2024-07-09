@@ -1,6 +1,13 @@
+import { Response, Request } from "express";
 import Product from "../models/product.model";
 
-const getProducts = async (req: any, res: any) => {
+/**
+ * @param req
+ * @param res
+ * get all all Products
+ */
+
+const getProducts = async (req: Request, res: Response) => {
     try {
         const products = await Product.find({});
         res.status(200).json(products);
@@ -9,7 +16,13 @@ const getProducts = async (req: any, res: any) => {
     }
 };
 
-const getProduct = async (req: any, res: any) => {
+/**
+ * Get Product using id
+ * @param req
+ * @param res
+ */
+
+const getProduct = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const product = await Product.findById(id);
@@ -19,7 +32,13 @@ const getProduct = async (req: any, res: any) => {
     }
 };
 
-const createProduct = async (req: any, res: any) => {
+/**
+ * Add produuct
+ * @param req
+ * @param res
+ */
+
+const createProduct = async (req: Request, res: Response) => {
     try {
         const product = await Product.create(req.body);
         res.status(200).json(product);
@@ -30,8 +49,12 @@ const createProduct = async (req: any, res: any) => {
 
 /**
  * update product by id
+ * @param req
+ * @param res
+ * @returns if product Id not available then return Product not found
  */
-const updateProduct = async (req: any, res: any) => {
+
+const updateProduct = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body);
@@ -46,10 +69,13 @@ const updateProduct = async (req: any, res: any) => {
 };
 
 /**
- *  delete product by id
+ * delete product by id
+ * @param req
+ * @param res
+ * @returns if product Id not available then return Product not found
  */
 
-const deleteProduct = async (req: any, res: any) => {
+const deleteProduct = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const product = await Product.findByIdAndDelete(id);
